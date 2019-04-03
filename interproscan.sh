@@ -1,8 +1,7 @@
 #!/bin/bash
-#run gth without
+#run interproscan by spliting the genome into contig blocks and run it one after another
 protein=$(realpath -s $1)
 ncontigs=$2 # the number of contigs running at one time
-ncpu=$3
 
 [[ -f ${protein}.fai ]] || samtools faidx $protein
 
@@ -23,7 +22,7 @@ do
   cmd="$cmd; samtools faidx $protein $x > pro.fa"
   #make the output file name short to avoid system error info 'Too long parameter'
   result=$(awk -v chrs="$x" 'BEGIN{n=split(chrs,tA," ");print tA[1]".."tA[n]}')
-  cmd="$cmd; $INTERPROSCANHOME/interproscan.sh -goterms -pa -cpu $ncpu -i pro.fa -o $pwd/res/res.${result} -f tsv 2> $pwd/errs/stderr.${result}"
+  cmd="$cmd; $INTERPROSCANHOME/interproscan.sh -goterms -pa -i pro.fa -o $pwd/res/res.${result} -f tsv 2> $pwd/errs/stderr.${result}"
   cmd="$cmd && rm -rf \$tmpdir;"
   cmd="test -f '$pwd/res/res.${result}' ||($cmd)"
   echo $cmd
