@@ -25,7 +25,7 @@ for x in $(tabix -l $guidefile)
 do  
   #all the operations take place in the folder created in /tmp  directory  to avoid lock problems in nfs storage
   tmpdir="mktemp -dp /tmp/";
-  cmd="tmpdir=\$($tmpdir);cd \$tmpdir;trap 'rm -rf "\$tmpdir"' EXIT; cd \$tmpdir";
+  cmd="tmpdir=\$($tmpdir);trap 'rm -rf "\$tmpdir"' EXIT; cd \$tmpdir";
   cmd="$cmd; samtools faidx $protein '$x' > pro.fa ; samtools faidx $genome \$(tabix $guidefile '$x' |cut -f5|awk '{s=s\" \"\$1} END{print s}') > genome.fa ";
   cmd="$cmd && $EXONERATEHOME/bin/exonerate --model protein2genome --fsmmemory 1024 --showalignment no --percent 80  --showsugar no --showvulgar no --showtargetgff yes -q pro.fa -t  genome.fa > '$pwd/aln/exon.result.${x}' 2> '$pwd/errs/exon.stderr.${x}' "  
   cmd="$cmd && rm -rf \$tmpdir"
