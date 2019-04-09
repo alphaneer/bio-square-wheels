@@ -75,7 +75,7 @@ pwd=$(pwd)
 
 #make repeat gff
 if [ "$repeats_file" == "auto" ] ;then
-  seqtk seq $genome | ~/bin/awk '{if(substr($1,1,1)==">") {chr=substr($0,2);next;}  n=split($1,tA,/[acgtn]+/,tB); nextpos=1;for(i=1;i<=n;++i) { if(length(tA[i])>0) print chr"\t"nextpos-1"\t"n
+  seqtk seq $genome | ~/bin/awk '{if(substr($1,1,1)==">") {chr=substr($1,2);next;}  n=split($1,tA,/[acgtn]+/,tB); nextpos=1;for(i=1;i<=n;++i) { if(length(tA[i])>0) print chr"\t"nextpos-1"\t"n
 extpos+length(tA[i])-1;  nextpos+=length(tA[i])+length(tB[i]);} }' |sort -k1,1 -k2,2n |bedtools complement -i stdin -g <(sort -k1,1 -k2,2n ${genome}.fai) > repeat.bed
   awk -v OFS="\t" '{print $1,"repeat",".",$2+1,$3,".","+",".","ID="NR}' repeat.bed > repeat.gff  
   repeats_file="$pwd/repeat.gff"
