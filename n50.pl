@@ -14,6 +14,7 @@ my @nums = ();
 
 my $len = 0;
 while(<>){
+        #add for fasta.fa.fai
         my @cols = split(/\t|\n|\s+/);
         if(@cols>=2 && $cols[0] !~ /^>(\S+)/) { 
           $len=$cols[1];
@@ -23,6 +24,7 @@ while(<>){
           push(@nums, $len),$total+=$len;
           $len=0;
         }
+        #end 
         elsif(/^>(\S+)/){
                 if($opt_s){
                         print "\t$len\n" if($len);
