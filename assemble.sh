@@ -3,7 +3,7 @@
 readonly help_msg="\
 Usage: $(basename $0) [OPTION]
 `basename $0` is used to run assembly tools
-eg `basename $0` -t 0 -i reads.fa -I '{}' -x pacbio|ont -g genomesize(Mb) eg assembly.sh  -t -1 -i reads.fa.gz -p 16 -x ont -g 5.3 > work.sh;  
+eg `basename $0` -t 0 -i reads.fa -I '{}' -x pacbio|ont -g genomesize(Mb);  
 tools and default options:
 0    SMARTdenovo
 1    Wtdbg2
@@ -126,7 +126,7 @@ chmod u+x work.sh
 tmp="cd $pwd/ra; pstats.sh $(pwd)/work.sh > pstats.log 2>&1 "
 [[ $tools -eq 4 ]] && cmd="$tmp"
 [[ $tools -eq -1 ]] && allcmd="$allcmd\n$tmp"
-
+ s
 #---------------------------unicycle-------------------------
 #tmp="mkdir -p $pwd/unicycler;cd $pwd/unicycler"
 #tmp="$tmp && unicycler -l $reads -o out_dir -t 8"
