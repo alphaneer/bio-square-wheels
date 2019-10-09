@@ -5,7 +5,7 @@ for file in "$@"
 do
     [ ! -s $file ] && continue
     filesize=$(wc -c "$file"|awk '{print $1}')
-    small_batch_size=$((1*1024*1024))
+    small_batch_size=$((4*1024*1024))
     [ $small_batch_size -gt $filesize ] && small_batch_size=$filesize
     opencmd=$(file -b "$file"|awk '{
       if($1=="ASCII") t="cat"; 
