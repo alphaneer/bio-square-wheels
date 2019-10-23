@@ -22,4 +22,4 @@ do
     total_bases=$[$total_bases+$bases]
     total_cnt=$[$total_cnt+$cnt]
 done
-echo -e $total_cnt"\t"$total_bases
+echo -e $total_cnt"\t"$total_bases"\t"$[$total_bases/$total_cnt]
