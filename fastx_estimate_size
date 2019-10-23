@@ -12,8 +12,10 @@ do
       else if($1=="gzip") t="gzip -dc"; 
       else if($1=="bzip2") t="bzip2 -dc";
       else if($1=="Zip64") t="gunzip -dc";
+      else t="unkown type";
       print t}'
     )
+    [ "$opencmd" == "unkown type" ] && printf "Error....%s\n" "$opencmd" && exit -1;
     batch=($(head -c $small_batch_size $file|$opencmd 2>/dev/null|$seqtk seq -A|awk 'NR%2{cnt++;next;} {l+=length();} END{print cnt"\t"l}'))
     bases=$(echo "${batch[1]}*$filesize/$small_batch_size"|bc)
     cnt=$(echo "${batch[0]}*$filesize/$small_batch_size"|bc)
