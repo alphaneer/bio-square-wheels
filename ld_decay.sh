@@ -95,10 +95,10 @@ cd $OUTDIR
 >muti.list
 for pop in ${POPS[@]}
 do 
-   s=$(basename $pop)
-   cmd="ls \$(pwd)/ld.*.sub.${s}.vcf.stat.gz > ${s}.list \
- && Plot_OnePop.pl -inList ${s}.list -output ${s}.cat";echo \$cmd;\
- echo ${s}.cat.bin.gz ${s} >> muti.list
+   s=\$(basename \$pop)
+   cmd="ls \$(pwd)/ld.*.sub.\${s}.vcf.stat.gz > \${s}.list \
+ && Plot_OnePop.pl -inList \${s}.list -output \${s}.cat";echo \$cmd;\
+ echo \${s}.cat.bin.gz \${s} >> muti.list
 done|parallel --will-cite -j $NCPU; 
 Plot_MultiPop.pl -inList  muti.list  -output  all.cat
 EOF
