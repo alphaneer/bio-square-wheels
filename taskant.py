@@ -40,9 +40,7 @@ def runcmd(cmd):
 
 	if len(stderr_data) != 1 and  rc != 0:
 		task = task+"\t@\t"+' <newline> '.join(stderr_data[0:-1])
-	return (rc,'{exit_code}\t{stderr_data}\t{command}'.format(exit_code=rc,
-															stderr_data=stderr_data[-1],
-															command=task))
+	return (rc,'{exit_code}\t{stderr_data}\t{command}'.format(exit_code=rc,stderr_data=stderr_data[-1],command=task))
 
 
 def get_last_cmd(file, n):
@@ -87,7 +85,7 @@ if __name__ == '__main__':
 	f_log.seek(0)
 	f_log.truncate()
 	f_log.write(os.linesep.join(["##"+x for x in  (check_output("lscpu && uname -a", shell=True).decode().strip()).split(os.linesep)])+os.linesep*2)
-    f_log.flush()
+	f_log.flush()
     
 	while True:
 		# try to open the task file
